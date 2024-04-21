@@ -22,7 +22,7 @@ class App {
   middlewares() {
     this.app.use(_express2.default.urlencoded({ extended: true })); // Lidar c/ dados enviado pelo método post
     this.app.use(_express2.default.json()); // Lidar c/ JSON enviado p/ o servidor
-    this.app.use('/images/', _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'upload')));
+    this.app.use('/images/', _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'upload', 'images')));
   }
 
   routes() {
