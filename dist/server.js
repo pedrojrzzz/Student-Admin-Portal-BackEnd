@@ -2,4 +2,5 @@
 
 _app2.default.listen(3001, () => {
   console.log(`Servidor rodando na porta: ${3001}`);
+  console.log(`Minha porta ${process.env.APP_PORT}`);
 });
