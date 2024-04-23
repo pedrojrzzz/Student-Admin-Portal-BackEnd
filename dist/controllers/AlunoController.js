@@ -14,38 +14,41 @@ class AlunoController {
       });
       return res.json(alunos);
     } catch (error) {
-      return res.status(400).json(
-        console.log(error.sqlMessage),
-      );
+      return res.status(400).json({
+        errors: [error.name],
+      });
     }
   }
 
   async show(req, res) {
     try {
       const { id } = req.params;
+
       if (!id) {
         return res.status(400).json({
-          errors: ['ID Inváldio.'],
+          errors: ['Faltando ID'],
         });
       }
 
       const aluno = await _Alunos2.default.findByPk(id, {
         attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
-        order: [[_Fotos2.default, 'id', 'DESC']],
+        order: [['id', 'DESC'], [_Fotos2.default, 'id', 'DESC']],
         include: {
           model: _Fotos2.default,
           attributes: ['url', 'filename'],
         },
       });
+
       if (!aluno) {
         return res.status(400).json({
-          errors: ['Aluno não existe.'],
+          errors: ['Aluno não existe'],
         });
       }
+
       return res.json(aluno);
     } catch (error) {
-      return res.stuatus(400).json({
-        errors: error.errors.map((err) => err.message),
+      return res.status(400).json({
+        errors: [error.name],
       });
     }
   }

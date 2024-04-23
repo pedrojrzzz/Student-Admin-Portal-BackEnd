@@ -5,6 +5,5 @@ var _loginRequired = require('../middlewares/loginRequired'); var _loginRequired
 
 const router = new (0, _express.Router)();
 
-router.post('/', _loginRequired2.default, _FotoController2.default.store); // <arquivo> e o nome que definimos no insomnia
-
+router.post('/', _loginRequired2.default, _FotoController2.default.store);
 exports. default = router;
