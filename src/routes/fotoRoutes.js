@@ -5,6 +5,5 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-router.post('/', loginRequired, FotoController.store); // <arquivo> e o nome que definimos no insomnia
-
+router.post('/', loginRequired, FotoController.store);
 export default router;
