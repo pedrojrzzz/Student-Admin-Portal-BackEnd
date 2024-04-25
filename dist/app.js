@@ -1,5 +1,5 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _dotenv = require('dotenv'); var _dotenv2 = _interopRequireDefault(_dotenv);
-var _path = require('path');
+var _path = require('path'); var _path2 = _interopRequireDefault(_path);
 
 _dotenv2.default.config({ path: _path.resolve.call(void 0, __dirname, '../.env') });
 
@@ -22,7 +22,7 @@ class App {
   middlewares() {
     this.app.use(_express2.default.urlencoded({ extended: true })); // Lidar c/ dados enviado pelo método post
     this.app.use(_express2.default.json()); // Lidar c/ JSON enviado p/ o servidor
-    this.app.use(_express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'upload')));
+    this.app.use(_express2.default.static(_path2.default.resolve(__dirname, '../upload/')));
   }
 
   routes() {
