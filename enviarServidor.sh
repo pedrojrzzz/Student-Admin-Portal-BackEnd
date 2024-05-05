@@ -5,7 +5,7 @@ if [ "$answer" = Y ] || [ "$answer" = y ]; then
   npm run build
   git add .
   echo What do you want write in you commit?
-  read message
+  read -r message
   git commit -m "$message"
   git push origin master
   echo Sending the files to the server
