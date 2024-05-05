@@ -7,6 +7,7 @@ if [ "$answer" = Y ] || [ "$answer" = y ]; then
   echo What do you want write in you commit?
   read -r message
   git commit -m "$message"
+  echo cheguei aqui
   git push origin master
   echo Sending the files to the server
 
