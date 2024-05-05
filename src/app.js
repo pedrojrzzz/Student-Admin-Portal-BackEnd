@@ -1,16 +1,33 @@
 import dotenv from 'dotenv';
-import { resolve } from 'path';
+import path, { resolve } from 'path';
 
-dotenv.config();
+dotenv.config({ path: resolve(__dirname, '../.env') });
 
 import './database';
 
 import express from 'express'; // Exportando o express
+import cors from 'cors';
+import helmet from 'helmet';
+
 import homeRouter from './routes/homeRoutes';
 import userRouter from './routes/userRoutes';
 import tokenRoutes from './routes/tokenRoutes';
 import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
+
+const allowList = [
+  'http://localhost:3000', // Remover em produção, colocar link do seu frontend dps
+];
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (allowList.includes(origin) || !origin) { // Se a origem exister em allowList permita ele passar.
+      callback(null, true); // Primeiro argumento null indicando que não há erro, e segundo argumento true indicando que a solicitação é permitida.
+    } else {
+      callback(new Error('Not allowed by CORS.', false)); // Indicando que há erro, e a solicitação não é permitida.
+    }
+  },
+};
 
 class App {
   constructor() {
@@ -20,9 +37,11 @@ class App {
   }
 
   middlewares() {
+    this.app.use(cors(corsOptions));
+    this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true })); // Lidar c/ dados enviado pelo método post
     this.app.use(express.json()); // Lidar c/ JSON enviado p/ o servidor
-    this.app.use(express.static(resolve(__dirname, '..', 'upload')));
+    this.app.use(express.static(path.resolve(__dirname, '../upload/')));
   }
 
   routes() {
