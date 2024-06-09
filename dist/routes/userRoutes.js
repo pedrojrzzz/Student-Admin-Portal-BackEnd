@@ -4,7 +4,7 @@ var _loginRequired = require('../middlewares/loginRequired'); var _loginRequired
 
 const router = new (0, _express.Router)();
 
-router.post('/', _loginRequired2.default, _UserController2.default.create);
+router.post('/', _UserController2.default.create);
 
 // Não deveria existir em uma aplicação real, para ensinar CRUD
 // Podemos apagar isso depois

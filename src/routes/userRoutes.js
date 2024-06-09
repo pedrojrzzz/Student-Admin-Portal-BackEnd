@@ -4,7 +4,7 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-router.post('/', loginRequired, UserController.create);
+router.post('/', UserController.create);
 
 // Não deveria existir em uma aplicação real, para ensinar CRUD
 // Podemos apagar isso depois
