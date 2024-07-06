@@ -1,19 +1,19 @@
-"use strict";"use strict";
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _dotenv = _interopRequireDefault(require("dotenv"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
 _dotenv["default"].config();
-
 var configDatabase = {
   dialect: 'mariadb',
-  database: process.env.DATABASE_NAME,
+  database: process.env.DATABASE,
   host: process.env.DATABASE_HOST,
   port: process.env.DATABASE_PORT,
   username: process.env.DATABASE_USERNAME,

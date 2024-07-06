@@ -1,15 +1,17 @@
 "use strict";
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
+var _path = _interopRequireDefault(require("path"));
+
 var _app = _interopRequireDefault(require("./app"));
 
 var _database = _interopRequireDefault(require("./database"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var path = require('path');
-
-require('dotenv').config({
-  path: path.resolve(__dirname, '../.env')
+_dotenv["default"].config({
+  path: _path["default"].resolve(__dirname, '../.env')
 });
 
 _app["default"].listen(3001, function _callee() {
@@ -30,7 +32,7 @@ _app["default"].listen(3001, function _callee() {
         case 7:
           _context.prev = 7;
           _context.t0 = _context["catch"](0);
-          console.error('Unable to connect to the database:', _context.t0);
+          console.error('Unable to connect to the database');
 
         case 10:
         case "end":

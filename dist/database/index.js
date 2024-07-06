@@ -1,14 +1,25 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _sequelize = require('sequelize'); var _sequelize2 = _interopRequireDefault(_sequelize);
-var _database = require('../config/database'); var _database2 = _interopRequireDefault(_database);
-var _Alunos = require('../models/Alunos'); var _Alunos2 = _interopRequireDefault(_Alunos); // Nosso model
-var _User = require('../models/User'); var _User2 = _interopRequireDefault(_User);
-var _Fotos = require('../models/Fotos'); var _Fotos2 = _interopRequireDefault(_Fotos);
+"use strict";
 
-const models = [_Alunos2.default, _User2.default, _Fotos2.default]; // Array contendo todos nossos models.
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _sequelize = _interopRequireDefault(require("sequelize"));
+var _database = _interopRequireDefault(require("../config/database"));
+var _Alunos = _interopRequireDefault(require("../models/Alunos"));
+var _User = _interopRequireDefault(require("../models/User"));
+var _Fotos = _interopRequireDefault(require("../models/Fotos"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+// Nosso model
 
-const connection = new (0, _sequelize2.default)(_database2.default); // Nossa conexão
+var models = [_Alunos["default"], _User["default"], _Fotos["default"]]; // Array contendo todos nossos models.
 
-models.forEach((model) => model.init(connection));
-models.forEach((model) => model.associate && model.associate(connection.models));
+var connection = new _sequelize["default"](_database["default"]); // Nossa conexão
 
-exports. default = connection;
+models.forEach(function (model) {
+  return model.init(connection);
+});
+models.forEach(function (model) {
+  return model.associate && model.associate(connection.models);
+});
+var _default = exports["default"] = connection;

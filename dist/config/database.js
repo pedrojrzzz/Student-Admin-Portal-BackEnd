@@ -1,10 +1,15 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _dotenv = require('dotenv'); var _dotenv2 = _interopRequireDefault(_dotenv);
+"use strict";
 
-_dotenv2.default.config();
-
-const configDatabase = {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _dotenv = _interopRequireDefault(require("dotenv"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_dotenv["default"].config();
+var configDatabase = {
   dialect: 'mariadb',
-  database: process.env.DATABASE_NAME,
+  database: process.env.DATABASE,
   host: process.env.DATABASE_HOST,
   port: process.env.DATABASE_PORT,
   username: process.env.DATABASE_USERNAME,
@@ -15,12 +20,11 @@ const configDatabase = {
     underscored: true,
     underscoredAll: true,
     createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    updatedAt: 'updated_at'
   },
   dialectOptions: {
-    timezone: 'America/Sao_Paulo',
+    timezone: 'America/Sao_Paulo'
   },
-  timezone: 'America/Sao_Paulo',
+  timezone: 'America/Sao_Paulo'
 };
-
-exports. default = configDatabase;
+var _default = exports["default"] = configDatabase;

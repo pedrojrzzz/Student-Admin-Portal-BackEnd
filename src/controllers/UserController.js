@@ -3,10 +3,16 @@ import User from '../models/User';
 class UserController {
   async create(req, res) {
     try {
-      const novoUser = await User.create(req.body);
+      console.log(req.body);
+      await User.create(req.body);
 
-      return res.json(novoUser);
+      return res.status(200).json({
+        message: 'Usuário criado com sucesso.',
+        code: 'SUCCESS',
+      });
     } catch (error) {
+      error.errors.map((errorMessage) => console.log({ errors: errorMessage.message }));
+
       res.status(400); // Status de bad requestion
       return res.json({
         errors: error.errors.map((err) => err.message),

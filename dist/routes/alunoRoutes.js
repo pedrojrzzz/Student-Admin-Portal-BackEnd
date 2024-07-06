@@ -1,14 +1,17 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _express = require('express');
-var _AlunoController = require('../controllers/AlunoController'); var _AlunoController2 = _interopRequireDefault(_AlunoController);
+"use strict";
 
-var _loginRequired = require('../middlewares/loginRequired'); var _loginRequired2 = _interopRequireDefault(_loginRequired);
-
-const router = new (0, _express.Router)();
-
-router.get('/', _AlunoController2.default.index);
-router.get('/:id', _AlunoController2.default.show);
-router.post('/', _loginRequired2.default, _AlunoController2.default.create);
-router.put('/:id', _loginRequired2.default, _AlunoController2.default.update);
-router.delete('/:id', _loginRequired2.default, _AlunoController2.default.delete);
-
-exports. default = router;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _express = require("express");
+var _AlunoController = _interopRequireDefault(require("../controllers/AlunoController"));
+var _loginRequired = _interopRequireDefault(require("../middlewares/loginRequired"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var router = new _express.Router();
+router.get('/', _AlunoController["default"].index);
+router.get('/:id', _AlunoController["default"].show);
+router.post('/', _loginRequired["default"], _AlunoController["default"].create);
+router.put('/:id', _loginRequired["default"], _AlunoController["default"].update);
+router["delete"]('/:id', _loginRequired["default"], _AlunoController["default"]["delete"]);
+var _default = exports["default"] = router;

@@ -1,8 +1,12 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _express = require('express');
-var _TokenController = require('../controllers/TokenController'); var _TokenController2 = _interopRequireDefault(_TokenController);
+"use strict";
 
-const router = new (0, _express.Router)();
-
-router.post('/', _TokenController2.default.create);
-
-exports. default = router;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _express = require("express");
+var _TokenController = _interopRequireDefault(require("../controllers/TokenController"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var router = new _express.Router();
+router.post('/', _TokenController["default"].create);
+var _default = exports["default"] = router;
