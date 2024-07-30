@@ -1,5 +1,5 @@
-import Aluno from '../models/Alunos';
-import Foto from '../models/Fotos';
+import Aluno from '../models/Alunos.js';
+import Foto from '../models/Fotos.js';
 
 class AlunoController {
   async index(req, res) {

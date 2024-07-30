@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
-import databaseConfig from '../config/database';
-import Aluno from '../models/Alunos'; // Nosso model
-import User from '../models/User';
-import Fotos from '../models/Fotos';
+import databaseConfig from '../config/database.js';
+import Aluno from '../models/Alunos.js'; // Nosso model
+import User from '../models/User.js';
+import Fotos from '../models/Fotos.js';
 
 const models = [Aluno, User, Fotos]; // Array contendo todos nossos models.
 

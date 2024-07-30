@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _dotenv = _interopRequireDefault(require("dotenv"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_dotenv["default"].config();
+import dotenv from 'dotenv';
+dotenv.config();
 var configDatabase = {
   dialect: 'mariadb',
   database: process.env.DATABASE,
@@ -27,4 +20,4 @@ var configDatabase = {
   },
   timezone: 'America/Sao_Paulo'
 };
-var _default = exports["default"] = configDatabase;
+export default configDatabase;

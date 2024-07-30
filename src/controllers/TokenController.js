@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/User.js';
 
 class TokenController {
   async create(req, res) {
@@ -8,7 +8,7 @@ class TokenController {
     // Checando se o usuário enviou o e-mail e o password
     if (!email || !password) {
       return res.status(401).json({
-        errors: ['Credencias inválidas'],
+        errors: ['Endereço de e-mail ou senha incorretos. Por favor, verifique suas credenciais e tente novamente.'],
       });
     }
 
@@ -16,14 +16,14 @@ class TokenController {
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(401).json({
-        errors: ['Usuário não existe'],
+        errors: ['Endereço de e-mail ou senha incorretos. Por favor, verifique suas credenciais e tente novamente.'],
       });
     }
 
     // Checando se a senha está correta
     if (!(await user.passwordIsValid(password))) {
       return res.status(401).json({
-        errors: ['Senha inválida'],
+        errors: ['Endereço de e-mail ou senha incorretos. Por favor, verifique suas credenciais e tente novamente.'],
       });
     }
 
@@ -31,7 +31,13 @@ class TokenController {
     const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
-    return res.json({ token, user: { id: user.id, nome: user.nome, email: user.email } });
+    res.cookie('token', token); // Provavelmente não funciona com http
+    console.log(`user logado: ${token}`);
+    return res.json({
+      user: { id: user.id, nome: user.nome, email: user.email },
+      token,
+      code: 'SUCCESS',
+    });
   }
 }
 

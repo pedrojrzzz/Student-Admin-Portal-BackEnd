@@ -7,97 +7,56 @@ function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = 
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
-function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-function _superPropGet(t, e, r, o) { var p = _get(_getPrototypeOf(1 & o ? t.prototype : t), e, r); return 2 & o ? function (t) { return p.apply(r, t); } : p; }
-function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
-function _superPropBase(t, o) { for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t));); return t; }
-function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
-function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-import Sequelize, { Model } from 'sequelize';
-import bcryptjs from 'bcryptjs';
-var User = /*#__PURE__*/function (_Model) {
-  function User() {
-    _classCallCheck(this, User);
-    return _callSuper(this, User, arguments);
+import jwt from 'jsonwebtoken';
+/* eslint-disable */
+var CheckAuthController = /*#__PURE__*/function () {
+  function CheckAuthController() {
+    _classCallCheck(this, CheckAuthController);
   }
-  _inherits(User, _Model);
-  return _createClass(User, [{
-    key: "passwordIsValid",
-    value: function passwordIsValid(sentPassword) {
-      return bcryptjs.compare(sentPassword, this.password_hash); // Isso retorna uma promise
-      // Vamos checar essa promise no controller
-    }
-  }], [{
-    key: "init",
-    value: function init(sequelize) {
-      _superPropGet(User, "init", this, 2)([{
-        nome: {
-          type: Sequelize.STRING,
-          defaultValue: '',
-          validate: {
-            len: {
-              args: [3, 255],
-              msg: 'Campo nome deve ter entre 3 e 255 caracteres.'
-            }
+  return _createClass(CheckAuthController, [{
+    key: "check",
+    value: function () {
+      var _check = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
+        var token;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              token = req.cookies.token;
+              console.log(req.headers);
+              console.log("user fez requisi\xE7\xE3o esse \xE9 o token dele: ".concat(token));
+              console.log(req.headers);
+              if (token) {
+                _context.next = 6;
+                break;
+              }
+              return _context.abrupt("return", res.status(401).json({
+                errors: ['Usuário não autenticado1'],
+                isAuthenticated: false
+              }));
+            case 6:
+              jwt.sign(token, process.env.TOKEN_SECRET, function (err, decoded) {
+                if (err) {
+                  return res.status(401).json({
+                    errors: ['Usuário não encontrado2'],
+                    isAuthenticated: false
+                  });
+                }
+                return res.status(200).json({
+                  isAuthenticated: true,
+                  decoded: decoded
+                });
+              });
+            case 7:
+            case "end":
+              return _context.stop();
           }
-        },
-        email: {
-          type: Sequelize.STRING,
-          defaultValue: '',
-          unique: {
-            msg: 'Esse e-mail já está em uso.'
-          },
-          validate: {
-            isEmail: {
-              msg: 'E-mail inválido.'
-            }
-          }
-        },
-        password_hash: {
-          // Esse campo n/ precisa ser validado, pq o user n/ vai enviar ele
-          type: Sequelize.STRING
-        },
-        password: {
-          type: Sequelize.VIRTUAL,
-          allowNull: false,
-          validate: {
-            len: {
-              args: [6, 50],
-              msg: 'Campo senha precisa ter entre 6 e 50 caracteres.'
-            },
-            notNull: {
-              msg: 'Campo senha é obrigatório'
-            }
-          }
-        } // esse campo não existe no Banco de dados
-      }, {
-        sequelize: sequelize
-      }]);
-      this.addHook('beforeSave', /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(user) {
-          return _regeneratorRuntime().wrap(function _callee$(_context) {
-            while (1) switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return bcryptjs.hash(user.password, 8);
-              case 2:
-                user.password_hash = _context.sent;
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }, _callee);
-        }));
-        return function (_x) {
-          return _ref.apply(this, arguments);
-        };
-      }());
-      return this;
-    }
+        }, _callee);
+      }));
+      function check(_x, _x2) {
+        return _check.apply(this, arguments);
+      }
+      return check;
+    }()
   }]);
-}(Model);
-export { User as default };
+}();
+export default new CheckAuthController();

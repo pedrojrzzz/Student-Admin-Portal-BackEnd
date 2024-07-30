@@ -1,15 +1,4 @@
-"use strict";
-
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _sequelize = _interopRequireWildcard(require("sequelize"));
-var _appConfig = _interopRequireDefault(require("../config/appConfig"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
@@ -19,12 +8,15 @@ function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstruct
 function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
 function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _superPropGet(t, e, r, o) { var p = _get(_getPrototypeOf(1 & o ? t.prototype : t), e, r); return 2 & o ? function (t) { return p.apply(r, t); } : p; }
 function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
 function _superPropBase(t, o) { for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t));); return t; }
 function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-var Fotos = exports["default"] = /*#__PURE__*/function (_Model) {
+import Sequelize, { Model } from 'sequelize';
+import appConfig from '../config/appConfig.js';
+var Fotos = /*#__PURE__*/function (_Model) {
   function Fotos() {
     _classCallCheck(this, Fotos);
     return _callSuper(this, Fotos, arguments);
@@ -33,9 +25,9 @@ var Fotos = exports["default"] = /*#__PURE__*/function (_Model) {
   return _createClass(Fotos, null, [{
     key: "init",
     value: function init(sequelize) {
-      _get(_getPrototypeOf(Fotos), "init", this).call(this, {
+      _superPropGet(Fotos, "init", this, 2)([{
         originalname: {
-          type: _sequelize["default"].STRING,
+          type: Sequelize.STRING,
           defaultValue: '',
           validate: {
             notEmpty: {
@@ -44,7 +36,7 @@ var Fotos = exports["default"] = /*#__PURE__*/function (_Model) {
           }
         },
         filename: {
-          type: _sequelize["default"].STRING,
+          type: Sequelize.STRING,
           defaultValue: '',
           validate: {
             notEmpty: {
@@ -53,15 +45,15 @@ var Fotos = exports["default"] = /*#__PURE__*/function (_Model) {
           }
         },
         url: {
-          type: _sequelize["default"].VIRTUAL,
+          type: Sequelize.VIRTUAL,
           get: function get() {
-            return "".concat(_appConfig["default"].url, "/images/").concat(this.getDataValue('filename'));
+            return "".concat(appConfig.url, "/images/").concat(this.getDataValue('filename'));
           }
         }
       }, {
         sequelize: sequelize,
         tableName: 'fotos'
-      });
+      }]);
       return this;
     }
   }, {
@@ -72,4 +64,5 @@ var Fotos = exports["default"] = /*#__PURE__*/function (_Model) {
       });
     }
   }]);
-}(_sequelize.Model);
+}(Model);
+export { Fotos as default };

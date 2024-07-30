@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
-import path from 'path';
-import app from './app';
-import connection from './database';
+import {resolve, dirname} from 'path';
+import { fileURLToPath } from 'url';
+import app from './app.js';
+import connection from './database/index.js';
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename)
+dotenv.config({ path: resolve(__dirname, '../.env') });
 
 app.listen(3001, async () => {
   try {
@@ -12,5 +15,7 @@ app.listen(3001, async () => {
     console.log(`Servidor rodando na porta: ${process.env.APP_PORT}`);
   } catch (error) {
     console.error('Unable to connect to the database');
+
+    console.log(error)
   }
 });

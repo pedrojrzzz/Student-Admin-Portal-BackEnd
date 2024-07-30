@@ -1,19 +1,24 @@
 import dotenv from 'dotenv';
-import path, { resolve } from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 dotenv.config({ path: resolve(__dirname, '../.env') });
 
-import './database';
+import './database/index.js';
 
 import express from 'express'; // Exportando o express
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
-import homeRouter from './routes/homeRoutes';
-import userRouter from './routes/userRoutes';
-import tokenRoutes from './routes/tokenRoutes';
-import alunoRoutes from './routes/alunoRoutes';
-import fotoRoutes from './routes/fotoRoutes';
+import homeRouter from './routes/homeRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import tokenRoutes from './routes/tokenRoutes.js';
+import alunoRoutes from './routes/alunoRoutes.js';
+import fotoRoutes from './routes/fotoRoutes.js';
+import checkAuthRoutes from './routes/checkAuthRoutes.js';
 
 const allowList = [
   'http://localhost:3000', // Remover em produção, colocar link do seu frontend dps
@@ -27,6 +32,7 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS.', false)); // Indicando que há erro, e a solicitação não é permitida.
     }
   },
+  credentials: true,
 };
 
 class App {
@@ -41,7 +47,8 @@ class App {
     this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true })); // Lidar c/ dados enviado pelo método post
     this.app.use(express.json()); // Lidar c/ JSON enviado p/ o servidor
-    this.app.use(express.static(path.resolve(__dirname, '../upload/')));
+    this.app.use(cookieParser());
+    this.app.use(express.static(resolve(__dirname, '../upload/')));
   }
 
   routes() {
@@ -50,6 +57,7 @@ class App {
     this.app.use('/tokens', tokenRoutes);
     this.app.use('/alunos/', alunoRoutes);
     this.app.use('/fotos/', fotoRoutes);
+    this.app.use('/check-auth', checkAuthRoutes);
   }
 }
 
