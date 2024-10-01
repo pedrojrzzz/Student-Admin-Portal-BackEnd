@@ -1,5 +1,13 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import dotenv from 'dotenv';
+import {resolve, dirname} from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: resolve(__dirname, '../.env') });
 
 class TokenController {
   async create(req, res) {
@@ -31,11 +39,11 @@ class TokenController {
     const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
-    res.cookie('token', token); // Provavelmente não funciona com http
+    res.cookie('token', token, {httpOnly: true, secure: true}); // Provavelmente não funciona com http
     console.log(`user logado: ${token}`);
     return res.json({
       user: { id: user.id, nome: user.nome, email: user.email },
-      token,
+      token, // NÃO É SEGURO DEIXAR O TOKEN JWT AQUI, ELE DEVE SER ENVIADO COM HTTPONLY
       code: 'SUCCESS',
     });
   }

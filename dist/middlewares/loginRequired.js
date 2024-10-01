@@ -10,6 +10,9 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { resolve, dirname } from 'path';
 export default ( /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res, next) {
     var authorization, _authorization$split, _authorization$split2, token, dados, id, email, user;
@@ -17,6 +20,9 @@ export default ( /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           authorization = req.headers.authorization;
+          /*   const __filename = fileURLToPath(import.meta.url);
+            const __dirname = dirname(__filename);
+            dotenv.config({path: resolve(__dirname, '../../.env') }); */
           if (authorization) {
             _context.next = 3;
             break;
@@ -26,41 +32,45 @@ export default ( /*#__PURE__*/function () {
           }));
         case 3:
           _authorization$split = authorization.split(' '), _authorization$split2 = _slicedToArray(_authorization$split, 2), token = _authorization$split2[1];
-          _context.prev = 4;
+          console.log(token);
+          _context.prev = 5;
           dados = jwt.verify(token, process.env.TOKEN_SECRET); // Caso seja inválido ele vai pro catch
           id = dados.id, email = dados.email; // Fazendo destructure dos dados
           // Checando se dados do payload, constam no banco de dados
-          _context.next = 9;
+          _context.next = 10;
           return User.findOne({
             where: {
               id: id,
               email: email
             }
           });
-        case 9:
+        case 10:
           user = _context.sent;
           if (user) {
-            _context.next = 12;
+            _context.next = 13;
             break;
           }
           return _context.abrupt("return", res.status(401).json({
             errors: ['Usuário inválido']
           }));
-        case 12:
+        case 13:
           req.userId = id; // Atrelando os dados do usuário a cada requisição que passar pelo middleware
           req.userEmail = email; // Atrelando os dados do usuário a cada requisição que passar pelo middleware
+          res.send({
+            isLoggedIn: true
+          });
           return _context.abrupt("return", next());
-        case 17:
-          _context.prev = 17;
-          _context.t0 = _context["catch"](4);
+        case 19:
+          _context.prev = 19;
+          _context.t0 = _context["catch"](5);
           return _context.abrupt("return", res.status(401).json({
             errors: ['Token expirado ou inválido']
           }));
-        case 20:
+        case 22:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[4, 17]]);
+    }, _callee, null, [[5, 19]]);
   }));
   return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);

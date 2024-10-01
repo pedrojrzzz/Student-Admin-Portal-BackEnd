@@ -4,6 +4,7 @@ import User from '../models/User.js';
 export default async (req, res, next) => {
   const { authorization } = req.headers;
 
+
   if (!authorization) {
     return res.status(401).json({
       errors: ['Login required'],
@@ -31,6 +32,9 @@ export default async (req, res, next) => {
 
     req.userId = id; // Atrelando os dados do usuário a cada requisição que passar pelo middleware
     req.userEmail = email; // Atrelando os dados do usuário a cada requisição que passar pelo middleware
+    res.send({
+      isLoggedIn: true
+    });
     return next();
   } catch (error) {
     return res.status(401).json({

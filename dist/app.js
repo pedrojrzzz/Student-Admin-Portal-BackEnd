@@ -7,11 +7,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 import dotenv from 'dotenv';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
-var __filename = fileURLToPath(import.meta.url);
-var __dirname = dirname(__filename);
-dotenv.config({
-  path: resolve(__dirname, '../.env')
-});
 import './database/index.js';
 import express from 'express'; // Exportando o express
 import cors from 'cors';
@@ -23,6 +18,11 @@ import tokenRoutes from './routes/tokenRoutes.js';
 import alunoRoutes from './routes/alunoRoutes.js';
 import fotoRoutes from './routes/fotoRoutes.js';
 import checkAuthRoutes from './routes/checkAuthRoutes.js';
+var __filename = fileURLToPath(import.meta.url);
+var __dirname = dirname(__filename);
+dotenv.config({
+  path: resolve(__dirname, '../.env')
+});
 var allowList = ['http://localhost:3000' // Remover em produção, colocar link do seu frontend dps
 ];
 var corsOptions = {
