@@ -1,9 +1,9 @@
-import Sequelize, { Model } from 'sequelize';
+const Sequelize = require('sequelize');
+const { Model } = Sequelize; // Desestruturar Model
 
-export default class Aluno extends Model {
+class Aluno extends Model {
   static init(sequelize) {
     super.init({
-
       nome: {
         type: Sequelize.STRING,
         defaultValue: '',
@@ -14,7 +14,6 @@ export default class Aluno extends Model {
           },
         },
       },
-
       sobrenome: {
         type: Sequelize.STRING,
         defaultValue: '',
@@ -25,12 +24,11 @@ export default class Aluno extends Model {
           },
         },
       },
-
       email: {
         type: Sequelize.STRING,
         defaultValue: '',
         unique: {
-          msg: 'E-mail já existente em nosso banco de dados,',
+          msg: 'E-mail já existente em nosso banco de dados.',
         },
         validate: {
           isEmail: {
@@ -38,7 +36,6 @@ export default class Aluno extends Model {
           },
         },
       },
-
       idade: {
         type: Sequelize.INTEGER,
         defaultValue: '',
@@ -48,23 +45,21 @@ export default class Aluno extends Model {
           },
         },
       },
-
       peso: {
         type: Sequelize.FLOAT,
         defaultValue: '',
         validate: {
           isFloat: {
-            msg: 'Campo peso, precisar ser um número inteiro ou de ponto flutuante.',
+            msg: 'Campo peso, precisa ser um número inteiro ou de ponto flutuante.',
           },
         },
       },
-
       altura: {
         type: Sequelize.FLOAT,
         defaultValue: '',
         validate: {
           isFloat: {
-            msg: 'Campo altura, precisar ser um número inteiro ou de ponto flutuante.',
+            msg: 'Campo altura, precisa ser um número inteiro ou de ponto flutuante.',
           },
         },
       },
@@ -79,3 +74,5 @@ export default class Aluno extends Model {
     this.hasMany(models.Fotos, { foreignKey: 'aluno_id' });
   }
 }
+
+module.exports = Aluno; // Exportação em CommonJS

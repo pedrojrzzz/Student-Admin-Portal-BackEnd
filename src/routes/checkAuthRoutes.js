@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import CheckAuthController from '../controllers/CheckAuthController.js';
-/* import loginRequired from '../middlewares/loginRequired'; */
+const { Router } = require('express');
+const CheckAuthController = require('../controllers/CheckAuthController.js');
 
 const router = new Router();
 
 router.get('/', CheckAuthController.check);
-export default router;
+
+module.exports = router

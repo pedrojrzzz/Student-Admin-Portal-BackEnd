@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import AlunoController from '../controllers/AlunoController.js';
+const { Router } = require('express')
+const AlunoController = require('../controllers/AlunoController.js')
 
-import loginRequired from '../middlewares/loginRequired.js';
+const loginRequired = require('../middlewares/loginRequired.js');
 
 const router = new Router();
 
@@ -11,4 +11,4 @@ router.post('/', loginRequired, AlunoController.create);
 router.put('/:id', loginRequired, AlunoController.update);
 router.delete('/:id', loginRequired, AlunoController.delete);
 
-export default router;
+module.exports = router;

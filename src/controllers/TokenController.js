@@ -1,11 +1,10 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
-import dotenv from 'dotenv';
-import {resolve, dirname} from 'path';
-import { fileURLToPath } from 'url';
+const jwt = require('jsonwebtoken')
+const User = require('../models/User.js')
+const dotenv = require('dotenv');
+const { resolve } = require('path')
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
+
 
 dotenv.config({ path: resolve(__dirname, '../.env') });
 
@@ -49,4 +48,4 @@ class TokenController {
   }
 }
 
-export default new TokenController();
+module.exports = new TokenController();

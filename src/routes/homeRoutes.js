@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import homeController from '../controllers/HomeController.js';
-import loginRequired from '../middlewares/loginRequired.js';
+const express = require('express')
+const HomeController = require('../controllers/HomeController.js')
+const loginRequired = require('../middlewares/loginRequired.js')
 
-const router = new Router();
+const router = new express.Router();
 
-router.get('/', homeController.index);
+router.get('/', HomeController.index);
 router.get('/teste', loginRequired);
 
-export default router;
+module.exports = router;

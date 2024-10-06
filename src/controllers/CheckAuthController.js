@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 /* eslint-disable */
 class CheckAuthController {
   async check(req, res) {
@@ -31,4 +31,4 @@ class CheckAuthController {
   }
 }
 
-export default new CheckAuthController();
+module.exports = new CheckAuthController();

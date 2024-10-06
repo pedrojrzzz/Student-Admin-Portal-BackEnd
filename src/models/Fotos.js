@@ -1,7 +1,8 @@
-import Sequelize, { Model } from 'sequelize';
-import appConfig from '../config/appConfig.js';
+const Sequelize = require('sequelize');
+const appConfig = require('../config/appConfig'); // Remover a extensão .js
+const { Model } = Sequelize; // Desestruturar Model
 
-export default class Fotos extends Model {
+class Fotos extends Model {
   static init(sequelize) {
     super.init({
       originalname: {
@@ -41,3 +42,5 @@ export default class Fotos extends Model {
     this.belongsTo(models.Aluno, { foreignKey: 'aluno_id' });
   }
 }
+
+module.exports = Fotos; // Exportação em CommonJS

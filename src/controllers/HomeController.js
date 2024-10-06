@@ -1,9 +1,9 @@
-import Aluno from '../models/Alunos.js';
-
 class HomeController {
-  async index(req, res) {
-    res.json('index');
+   async index(req, res) {
+    res.status(200).json({
+      message: "Welcome to the SAP-Project API"
+    })
   }
 }
 
-export default new HomeController();
+module.exports = new HomeController();

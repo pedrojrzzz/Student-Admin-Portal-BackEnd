@@ -1,11 +1,11 @@
-import multer from 'multer'; // Importando o módulo multer para lidar com uploads de arquivos
-import { extname, resolve } from 'path';
+const multer = require('multer') // Importando o módulo multer para lidar com uploads de arquivos
+const { extname, resolve } = require('path')
 
 // Função para gerar um número aleatório entre 10000 e 20000
 const aleatorio = () => Math.floor(Math.random() * 10000 + 10000);
 
 // Exportando a configuração do multer
-export default {
+module.exports = {
   fileFilter: (req, file, cb) => { // Filtrar os arquivos recebidos apenas para imagens PNG ou JPEG
     if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg') {
       return cb(new multer.MulterError('Arquivo precisa ser PNG ou JPG'));

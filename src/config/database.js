@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv')
 
 dotenv.config();
 
@@ -23,4 +23,4 @@ const configDatabase = {
   timezone: 'America/Sao_Paulo',
 };
 
-export default configDatabase;
+module.exports = configDatabase;

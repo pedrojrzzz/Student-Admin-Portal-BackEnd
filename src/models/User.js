@@ -1,11 +1,11 @@
-import Sequelize, { Model } from 'sequelize';
-import bcryptjs from 'bcryptjs';
+const Sequelize = require('sequelize');
+const bcryptjs = require('bcryptjs');
+const { Model } = Sequelize; // Desestruturar Model
 
-export default class User extends Model {
+class User extends Model {
   static init(sequelize) {
     super.init(
       {
-
         nome: {
           type: Sequelize.STRING,
           defaultValue: '',
@@ -30,7 +30,7 @@ export default class User extends Model {
           },
         },
 
-        password_hash: { // Esse campo n/ precisa ser validado, pq o user n/ vai enviar ele
+        password_hash: { // Esse campo não precisa ser validado, pois o usuário não vai enviar ele
           type: Sequelize.STRING,
         },
 
@@ -63,3 +63,5 @@ export default class User extends Model {
     // Vamos checar essa promise no controller
   }
 }
+
+module.exports = User; // Exportação em CommonJS

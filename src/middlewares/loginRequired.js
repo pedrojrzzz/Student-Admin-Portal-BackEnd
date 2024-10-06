@@ -1,9 +1,8 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+const jwt = require('jsonwebtoken');
+const User = require('../models/User.js');
 
-export default async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { authorization } = req.headers;
-
 
   if (!authorization) {
     return res.status(401).json({
@@ -13,10 +12,10 @@ export default async (req, res, next) => {
   const [, token] = authorization.split(' ');
 
   try {
-    const dados = jwt.verify(token, process.env.TOKEN_SECRET); // Caso seja inválido ele vai pro catch
+    const dados = jwt.verify(token, process.env.TOKEN_SECRET); // Caso seja inválido, ele vai pro catch
     const { id, email } = dados; // Fazendo destructure dos dados
 
-    // Checando se dados do payload, constam no banco de dados
+    // Checando se dados do payload constam no banco de dados
     const user = await User.findOne({
       where: {
         id,
