@@ -35,6 +35,7 @@ class TokenController {
     }
 
     const { id } = user;
+    console.log(process.env.TOKEN_EXPIRATION)
     const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
@@ -42,7 +43,7 @@ class TokenController {
     console.log(`user logado: ${token}`);
     return res.json({
       user: { id: user.id, nome: user.nome, email: user.email },
-      token, // NÃO É SEGURO DEIXAR O TOKEN JWT AQUI, ELE DEVE SER ENVIADO COM HTTPONLY
+      token, // NÃO É SEGURO DEIXAR O TOKEN JWT AQUI, ELE DEVE SER ENVIADO COM HTTPONLY, MAS SÓ FUNCIONARIA COM HTTPS
       code: 'SUCCESS',
     });
   }

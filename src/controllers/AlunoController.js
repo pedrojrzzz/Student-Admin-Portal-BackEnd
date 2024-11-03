@@ -5,7 +5,7 @@ class AlunoController {
   async index(req, res) {
     try {
       const alunos = await Aluno.findAll({
-        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura', 'status'],
         order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Toda vez que um novo aluno for criado, ele vai pro topo da lista
         include: {
           model: Foto,

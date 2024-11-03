@@ -14,6 +14,7 @@ module.exports = async (req, res, next) => {
   try {
     const dados = jwt.verify(token, process.env.TOKEN_SECRET); // Caso seja inválido, ele vai pro catch
     const { id, email } = dados; // Fazendo destructure dos dados
+    console.log(dados)
 
     // Checando se dados do payload constam no banco de dados
     const user = await User.findOne({
@@ -31,11 +32,9 @@ module.exports = async (req, res, next) => {
 
     req.userId = id; // Atrelando os dados do usuário a cada requisição que passar pelo middleware
     req.userEmail = email; // Atrelando os dados do usuário a cada requisição que passar pelo middleware
-    res.send({
-      isLoggedIn: true
-    });
     return next();
   } catch (error) {
+    console.log(error)
     return res.status(401).json({
       errors: ['Token expirado ou inválido'],
     });
