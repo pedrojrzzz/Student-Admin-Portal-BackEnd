@@ -40,12 +40,18 @@ class TokenController {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
     res.cookie('token', token, {httpOnly: true, secure: true}); // Provavelmente não funciona com http
-    console.log(`user logado: ${token}`);
+    console.log(`Usuário: ${user}, fez login.`)
     return res.json({
       user: { id: user.id, nome: user.nome, email: user.email },
-      token, // NÃO É SEGURO DEIXAR O TOKEN JWT AQUI, ELE DEVE SER ENVIADO COM HTTPONLY, MAS SÓ FUNCIONARIA COM HTTPS
+      token, // NÃO É SEGURO DEIXAR O TOKEN JWT AQUI, ELE DEVE SER ENVIADO COM HTTPONLY, MAS SÓ FUNCIONARIA COM HTTPS, NÃO VOU USAR POR ENQUANTO
       code: 'SUCCESS',
     });
+  }
+
+  async userIsAuthorized(req, res) {
+    res.status(200).json({
+      success: ['Token validado com sucesso, usuário autorizado']
+    })
   }
 }
 
