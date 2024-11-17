@@ -1,4 +1,5 @@
-const { User } = require('../models/User.js')
+/* const { User } = require('../models/User.js') */
+const User = require ('../models/User.js')
 
 class UserController {
   async create(req, res) {
@@ -11,6 +12,7 @@ class UserController {
         code: 'SUCCESS',
       });
     } catch (error) {
+      console.log(error).errors;
       error.errors.map((errorMessage) => console.log({ errors: errorMessage.message }));
 
       res.status(400); // Status de bad requestion
