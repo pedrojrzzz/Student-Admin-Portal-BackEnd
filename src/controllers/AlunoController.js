@@ -65,7 +65,10 @@ class AlunoController {
   }
 
   async update(req, res) {
+    console.log('oii')
     try {
+      console.log('oi')
+      console.log(req.headers)
       const { id } = req.params;
       if (!id) {
         res.status(400).json({
