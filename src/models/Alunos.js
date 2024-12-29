@@ -66,12 +66,6 @@ class Aluno extends Model {
       status: {
         type: Sequelize.BOOLEAN,
         defaultValue: 1,
-        validate: {
-          len: {
-            args: [1, 1],
-            msg: 'Campo status deve conter apenas 1 caracter.'
-          }
-        }
       }
     }, {
       sequelize,

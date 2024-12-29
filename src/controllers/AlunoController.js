@@ -65,10 +65,7 @@ class AlunoController {
   }
 
   async update(req, res) {
-    console.log('oii')
     try {
-      console.log('oi')
-      console.log(req.headers)
       const { id } = req.params;
       if (!id) {
         res.status(400).json({
@@ -85,7 +82,9 @@ class AlunoController {
       await Aluno.update(req.body, {
         where: { id },
       });
-      return res.json(await Aluno.findByPk(id));
+      return res.status(200).json({
+        mensagem: [`Dados cadastrais alterado com sucesso.`]
+      });
     } catch (error) {
       return res.status(400).json({
         errors: error.errors.map((err) => err.message),
