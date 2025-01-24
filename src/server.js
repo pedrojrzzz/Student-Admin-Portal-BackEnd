@@ -12,7 +12,7 @@ app.listen(3001, async () => {
     console.log('Connection with database has been established successfully.');
     console.log(`Server is running on: ${process.env.APP_PORT}`);
   } catch (e) {
-    console.log()
+    console.log('Just test')
     throw new Error(`Unable to connect to the database: ${e}`)
   }
 });
