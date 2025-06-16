@@ -5,7 +5,7 @@ const loginRequired = require('../middlewares/loginRequired.js')
 
 const router = new Router();
 
-router.post('/', loginRequired, FotoController.store);
+router.post('/:id', loginRequired, FotoController.store);
 router.put('/:id', loginRequired, FotoController.update);
 
 module.exports = router;

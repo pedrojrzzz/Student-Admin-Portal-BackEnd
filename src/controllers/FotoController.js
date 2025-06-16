@@ -20,6 +20,7 @@ class FotoController {
       try {
         console.log(req.body)
         const { aluno_id } = req.body;
+        console.log(aluno_id)
         const { originalname, filename } = req.file;
 
         // Checando se o id está em branco
@@ -51,7 +52,6 @@ class FotoController {
   update(req, res) {
     return upload(req, res, async (error) => {
       if (error) {
-        console.log('cai nesse error')
         return res.status(400).json({
           errors: [error]
         })

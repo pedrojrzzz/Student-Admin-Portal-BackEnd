@@ -1,14 +1,14 @@
 const Aluno = require('../models/Alunos.js');
-const Foto = require('../models/Fotos.js');
+const Fotos = require('../models/Fotos.js');
 
 class AlunoController {
   async index(req, res) {
     try {
       const alunos = await Aluno.findAll({
         attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura', 'status'],
-        order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // Toda vez que um novo aluno for criado, ele vai pro topo da lista
+        order: [['id', 'DESC'], [Fotos, 'id', 'DESC']], // Toda vez que um novo aluno for criado, ele vai pro topo da lista
         include: {
-          model: Foto,
+          model: Fotos,
           attributes: ['url', 'filename'],
         },
       });
@@ -55,14 +55,37 @@ class AlunoController {
 
   async create(req, res) {
     try {
-      const novoAluno = await Aluno.create(req.body);
-      return res.json(novoAluno);
+      console.log(req.body)
+      console.log(req.file)
+      const dadosAluno = JSON.parse(req.body.aluno);
+      const novoAluno = await Aluno.create(dadosAluno);
+      const aluno_id = novoAluno.dataValues.id
+      const {originalname, filename} = req.file
+     
+      const fotoAluno = await Fotos.create({ originalname, filename, aluno_id })
+
+      return res.json({novoAluno, fotoAluno});
     } catch (error) {
+      console.log(error)
       return res.status(400).json({
         errors: error.errors.map((err) => err.message),
       });
     }
   }
+
+  // async create(req, res) {
+  //   try {
+  //     const novoAluno = await Aluno.create(req.body);
+  //     //const {originalName, filename}
+  //     const fotoAluno = await Foto.cre
+
+  //     return res.json(novoAluno);
+  //   } catch (error) {
+  //     return res.status(400).json({
+  //       errors: error.errors.map((err) => err.message),
+  //     });
+  //   }
+  // }
 
   async update(req, res) {
     try {

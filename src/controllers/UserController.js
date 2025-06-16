@@ -11,7 +11,7 @@ class UserController {
         code: 'SUCCESS',
       });
     } catch (error) {
-      console.log(error).errors;
+      console.log(error);
       error.errors.map((errorMessage) => console.log({ errors: errorMessage.message }));
 
       res.status(400); // Status de bad requestion

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const appConfig = require('../config/appConfig'); // Remover a extensão .js
-const { Model } = Sequelize; // Desestruturar Model
+const appConfig = require('../config/appConfig');
+const { Model } = Sequelize;
 
 class Fotos extends Model {
   static init(sequelize) {
@@ -23,6 +23,11 @@ class Fotos extends Model {
             msg: 'Campo não pode ficar vazio',
           },
         },
+      },
+
+      aluno_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
 
       url: {
