@@ -6,7 +6,7 @@ const swaggerDocument = require('../swagger.json')
 
 require('./database/index');
 
-const express = require('express'); // Exportando o express
+const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -22,7 +22,8 @@ dotenv.config({ path: resolve(__dirname, '../.env') });
 
 
 const allowList = [
-  'http://localhost:3000', // Remover em produção, colocar link do seu frontend dps
+  'http://localhost:3000',
+  'http://localhost:3000/portal-alunos'
 ];
 
 const corsOptions = {
@@ -38,9 +39,9 @@ const corsOptions = {
 
 class App {
   constructor() {
-    this.app = express(); // Instanciando o express na variável this.app
-    this.middlewares(); // Instanciando o método middlewares
-    this.routes(); // Instanciando o método routes
+    this.app = express();
+    this.middlewares();
+    this.routes();
   }
 
   middlewares() {
@@ -64,4 +65,4 @@ class App {
   }
 }
 
-module.exports = new App().app; // Mudar exportação para CommonJS
+module.exports = new App().app;
