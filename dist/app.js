@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+"use strict";const dotenv = require('dotenv');
 const {resolve} = require('path')
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json')
@@ -22,8 +22,8 @@ dotenv.config({ path: resolve(__dirname, '../.env') });
 
 
 const allowList = [
-  'https://student-admin-project.netlify.app/',
-  'https://student-admin-project.netlify.app/portal-alunos'
+  'http://localhost:3000',
+  'http://localhost:3000/portal-alunos'
 ];
 
 const corsOptions = {
