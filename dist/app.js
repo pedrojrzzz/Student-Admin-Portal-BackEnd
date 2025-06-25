@@ -22,8 +22,8 @@ dotenv.config({ path: resolve(__dirname, '../.env') });
 
 
 const allowList = [
-  'http://localhost:3000',
-  'http://localhost:3000/portal-alunos'
+  'https://student-admin-project.netlify.app/',
+  'https://student-admin-project.netlify.app/portal-alunos'
 ];
 
 const corsOptions = {
